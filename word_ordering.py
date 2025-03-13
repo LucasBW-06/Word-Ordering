@@ -26,22 +26,18 @@ def merge(left, right): # função que mescla duas arrays ordenadas
     return result + left[l:] + right[r:] # retorna a array ordenada
 
 def compare(word_1, word_2): # função que compara duas strings, de acordo com o alfabeto permutado
-    l_1 = len(word_1)
-    l_2 = len(word_2)
     # compara o índice de cada letra das strings na lista do alfabeto permutado
-    for i in range(l_1 if l_1 <= l_2 else l_2):
-        if alpha.index(word_1[i]) > alpha.index(word_2[i]):
+    for i in range(min(len(word_1), len(word_2))):
+        if alpha_index[word_1[i]] > alpha_index[word_2[i]]:
             return False
-        elif alpha.index(word_1[i]) < alpha.index(word_2[i]):
+        elif alpha_index[word_1[i]] < alpha_index[word_2[i]]:
             return True
-        
-    if l_1 > l_2:
-        return False
     
-    return True
+    return len(word_1) <= len(word_2) # retorna se as palavras são de mesmo tamanho ou se a primeira palavra é menor que a segunda
 
 alpha = list(input()) # recebe a string do alfabeto, convertendo-o para uma lista
 alpha = alpha + [i.upper() for i in alpha] # adiciona os letras maiusculas ao final da lista, na ordem recebida
+alpha_index = {letter: idx for idx, letter in enumerate(alpha)}
 num = int(input()) # recebe um número N
 words = [input() for i in range(num)] # recebe N strings
 print()
